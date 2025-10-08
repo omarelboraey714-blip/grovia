@@ -1,0 +1,65 @@
+.
+├── clean-structure.txt
+├── components.json
+├── eslint.config.mjs
+├── lib
+├── middleware.ts
+├── next.config.ts
+├── next-env.d.ts
+├── notes.txt
+├── package.json
+├── package-lock.json
+├── plan.txt
+├── postcss.config.mjs
+├── prisma
+│   ├── schema.prisma
+│   ├── schema.prisma:50
+│   ├── schema.prisma:77
+│   └── seed.ts
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── README.md
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   ├── auth
+│   │   │   ├── checkins
+│   │   │   ├── classes
+│   │   │   ├── members
+│   │   │   ├── payments
+│   │   │   ├── plans
+│   │   │   ├── reports
+│   │   │   ├── reservations
+│   │   │   ├── sessions
+│   │   │   ├── stats
+│   │   │   └── subscriptions
+│   │   ├── auth
+│   │   │   └── page.tsx
+│   │   ├── dashboard
+│   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── unauthorized
+│   │       └── page.tsx
+│   ├── components
+│   │   └── auth
+│   │       ├── AuthCard.tsx
+│   │       ├── ErrorMessage.tsx
+│   │       ├── ForgotPasswordForm.tsx
+│   │       ├── LoginForm.tsx
+│   │       ├── RegisterForm.tsx
+│   │       ├── ResetPasswordForm.tsx
+│   │       ├── types.ts
+│   │       └── VerifyEmailForm.tsx
+│   └── lib
+│       ├── auth.ts
+│       └── utils.ts
+└── tsconfig.json
+
+24 directories, 39 files
