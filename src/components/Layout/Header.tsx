@@ -28,12 +28,12 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const navLinks = [
-    { label: "Home", href: "#Home", isActive: false },
-    { label: "ًFeatures", href: "#Features", isActive: true },
-    { label: "Services", href: "#Services", isActive: false },
-    { label: "Testmonials", href: "#Testmonials", isActive: false },
-    { label: "Pricing", href: "#Pricing", isActive: false },
-    { label: "Contact", href: "#Contact", isActive: false },
+    { label: "Home", href: "#Home" },
+    { label: "ًFeatures", href: "#Features" },
+    { label: "Services", href: "#Services" },
+    { label: "Testmonials", href: "#Testmonials" },
+    { label: "Pricing", href: "#Pricing" },
+    { label: "Contact", href: "#Contact" },
   ];
 
   const menuItems = [
@@ -69,7 +69,11 @@ export default function App() {
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         {navLinks.map(({ label, href }) => (
           <NavbarItem key={label}>
-            <Link href={href} className="text-light hover:text-text">
+            <Link
+              href={href}
+              size="md"
+              className="text-light hover:text-text font-bold"
+            >
               {label}
             </Link>
           </NavbarItem>
@@ -81,9 +85,9 @@ export default function App() {
         {menuItems.map(({ label, href }) => (
           <NavbarMenuItem key={label} className="">
             <Link
-              className="w-full text-light hover:text-text"
+              className="w-full text-light hover:text-text font-bold"
               href={href}
-              size="lg"
+              size="md"
             >
               {label}
             </Link>

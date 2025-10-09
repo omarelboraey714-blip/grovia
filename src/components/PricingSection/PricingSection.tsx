@@ -60,7 +60,7 @@ export default function PricingSection() {
                 className="w-full py-3 cursor-pointer bg-gradient-to-r from-grad-4 to-grad-2 text-white rounded-xl font-medium hover:opacity-90 transition"
                 href={"#Contact"}
               >
-                <button>Get Started Today</button>
+                <button className="cursor-pointer">Get Started Today</button>
               </Link>
             </div>{" "}
             <BorderBeam

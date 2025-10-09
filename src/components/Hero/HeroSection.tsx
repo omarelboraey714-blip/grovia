@@ -20,7 +20,6 @@ export default function SVGMaskEffectDemo() {
         </div>
         <div className="grid gap-5 px-5 text-center w-fit">
           <TypingAnimation
-            delay={1750}
             typeSpeed={25}
             showCursor={false}
             className="font-inter text-xl sm:text-2xl bg-gradient-to-r from-grad-4 to-grad-2 bg-clip-text text-transparent font-bold md:text-4xl"
@@ -30,7 +29,7 @@ export default function SVGMaskEffectDemo() {
 
           <TextAnimate
             className="text-center text-xl text-text md:text-2xl font-openSans"
-            delay={3.2}
+            delay={1.5}
             duration={1.5}
             animation="blurIn"
             as="h1"
@@ -45,12 +44,12 @@ export default function SVGMaskEffectDemo() {
             className=" text-lg bg-gradient-to-r from-grad-4  to-grad-2 bg-clip-text text-transparent"
             animation="scaleUp"
             by="text"
-            delay={5}
+            delay={3.2}
             once
           >
             Let’s accelerate your growth today
           </TextAnimate>
-          <BlurFade delay={5.5}>
+          <BlurFade delay={3.2}>
             <div className="flex justify-center text-center">
               <HoverBorderGradient
                 containerClassName="rounded-full"

@@ -106,6 +106,7 @@ export const PixelImage = ({
           }}
         >
           <Image
+            fill
             src={src}
             alt={`Pixel image piece ${index + 1}`}
             className={cn(
