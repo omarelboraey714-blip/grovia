@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useMotionTemplate, useMotionValue, motion } from "motion/react";
@@ -10,17 +11,20 @@ export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type = "text", ...props }, ref) => {
     const radius = 100;
     const [visible, setVisible] = React.useState(false);
-    let mouseX = useMotionValue(0);
-    let mouseY = useMotionValue(0);
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-      let { left, top } = currentTarget.getBoundingClientRect();
-      mouseX.set(clientX - left);
-      mouseY.set(clientY - top);
-    }
+    const handleMouseMove = React.useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        const { left, top } = e.currentTarget.getBoundingClientRect();
+        mouseX.set(e.clientX - left);
+        mouseY.set(e.clientY - top);
+      },
+      [mouseX, mouseY]
+    );
 
     return (
       <motion.div
@@ -28,7 +32,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           background: useMotionTemplate`
             radial-gradient(
               ${
-                visible ? radius + "px" : "0px"
+                visible ? `${radius}px` : "0px"
               } circle at ${mouseX}px ${mouseY}px,
               #3b82f6,
               transparent 80%
@@ -45,10 +49,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
           className={cn(
-            `shadow-input dark:placeholder-text-neutral-600 flex h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-sm text-black transition duration-400 
+            `shadow-input flex h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-sm text-black transition duration-400 
              group-hover/input:shadow-none placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 
              focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 
-             dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
+             dark:bg-zinc-800 dark:text-white dark:placeholder:text-neutral-600 
+             dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
             className
           )}
         />
@@ -62,14 +67,17 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
     const radius = 120;
     const [visible, setVisible] = React.useState(false);
-    let mouseX = useMotionValue(0);
-    let mouseY = useMotionValue(0);
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-      let { left, top } = currentTarget.getBoundingClientRect();
-      mouseX.set(clientX - left);
-      mouseY.set(clientY - top);
-    }
+    const handleMouseMove = React.useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        const { left, top } = e.currentTarget.getBoundingClientRect();
+        mouseX.set(e.clientX - left);
+        mouseY.set(e.clientY - top);
+      },
+      [mouseX, mouseY]
+    );
 
     return (
       <motion.div
@@ -77,7 +85,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           background: useMotionTemplate`
             radial-gradient(
               ${
-                visible ? radius + "px" : "0px"
+                visible ? `${radius}px` : "0px"
               } circle at ${mouseX}px ${mouseY}px,
               #3b82f6,
               transparent 80%
@@ -93,10 +101,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           {...props}
           className={cn(
-            `shadow-input dark:placeholder-text-neutral-600 w-full min-h-[120px] rounded-md border-none bg-gray-50 px-3 py-3 text-sm text-black transition duration-400 
+            `shadow-input w-full min-h-[120px] rounded-md border-none bg-gray-50 px-3 py-3 text-sm text-black transition duration-400 
              group-hover/textarea:shadow-none placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 
              focus-visible:outline-none resize-none disabled:cursor-not-allowed disabled:opacity-50 
-             dark:bg-zinc-800 dark:text-white dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
+             dark:bg-zinc-800 dark:text-white dark:placeholder:text-neutral-600 
+             dark:shadow-[0px_0px_1px_1px_#404040] dark:focus-visible:ring-neutral-600`,
             className
           )}
         />
