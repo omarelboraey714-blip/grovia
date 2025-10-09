@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -40,17 +40,20 @@ export const StickyScroll = ({
 
   const backgroundColors = ["#0f172a00", "#00000000", "#17171700"];
 
-  const linearGradients = [
-    "linear-gradient(to bottom right, #06b6d4, #10b981)",
-    "linear-gradient(to bottom right, #ec4899, #6366f1)",
-    "linear-gradient(to bottom right, #f97316, #eab308)",
-  ];
+  // ✅ نستخدم useMemo علشان نحافظ على نفس المرجع في كل render
+  const linearGradients = useMemo(
+    () => [
+      "linear-gradient(to bottom right, #06b6d4, #10b981)",
+      "linear-gradient(to bottom right, #ec4899, #6366f1)",
+      "linear-gradient(to bottom right, #f97316, #eab308)",
+    ],
+    []
+  );
 
   const [backgroundGradient, setBackgroundGradient] = useState(
     linearGradients[0]
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
   }, [activeCard, linearGradients]);

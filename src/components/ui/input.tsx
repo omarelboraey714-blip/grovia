@@ -5,13 +5,17 @@ import { cn } from "@/lib/utils";
 import { useMotionTemplate, useMotionValue, motion } from "motion/react";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  variant?: "default" | "outlined";
+}
 
 export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  variant?: "default" | "outlined";
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type = "text", ...props }, ref) => {
+  ({ className, type = "text", variant = "default", ...props }, ref) => {
     const radius = 100;
     const [visible, setVisible] = React.useState(false);
     const mouseX = useMotionValue(0);
@@ -42,7 +46,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="group/input rounded-lg p-[2px] transition duration-300"
+        className={cn(
+          "group/input rounded-lg p-[2px] transition duration-300",
+          variant === "outlined" &&
+            "border border-gray-300 dark:border-zinc-700"
+        )}
       >
         <input
           type={type}
@@ -64,7 +72,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 Input.displayName = "Input";
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, variant = "default", ...props }, ref) => {
     const radius = 120;
     const [visible, setVisible] = React.useState(false);
     const mouseX = useMotionValue(0);
@@ -95,7 +103,11 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setVisible(true)}
         onMouseLeave={() => setVisible(false)}
-        className="group/textarea rounded-lg p-[2px] transition duration-300"
+        className={cn(
+          "group/textarea rounded-lg p-[2px] transition duration-300",
+          variant === "outlined" &&
+            "border border-gray-300 dark:border-zinc-700"
+        )}
       >
         <textarea
           ref={ref}
