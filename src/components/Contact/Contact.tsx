@@ -57,8 +57,8 @@ export default function ContactForm() {
               description: issue.message,
               variant: "flat",
               color: "danger",
-              // timeout: 3000,
-              // shouldShowTimeoutProgress: true,
+              timeout: 3000,
+              shouldShowTimeoutProgress: true,
             });
           });
         } else {

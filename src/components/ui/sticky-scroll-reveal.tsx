@@ -43,9 +43,9 @@ export const StickyScroll = ({
   // ✅ نستخدم useMemo علشان نحافظ على نفس المرجع في كل render
   const linearGradients = useMemo(
     () => [
-      "linear-gradient(to bottom right, #06b6d4, #10b981)",
-      "linear-gradient(to bottom right, #ec4899, #6366f1)",
-      "linear-gradient(to bottom right, #f97316, #eab308)",
+      "linear-gradient(to bottom right, #06b6d400, #10b98100)",
+      "linear-gradient(to bottom right, #ec489900, #6366f100)",
+      "linear-gradient(to bottom right, #f9731600, #eab30800)",
     ],
     []
   );
