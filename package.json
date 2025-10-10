@@ -13,6 +13,7 @@
     "@auth/prisma-adapter": "^2.10.0",
     "@faker-js/faker": "^10.0.0",
     "@heroui/react": "^2.8.5",
+    "@heroui/toast": "^2.0.17",
     "@hookform/resolvers": "^5.2.1",
     "@prisma/client": "^6.15.0",
     "@radix-ui/react-label": "^2.1.7",

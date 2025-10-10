@@ -1,4 +1,3 @@
-// components/ContactForm.tsx
 "use client";
 import React, { useState } from "react";
 import { Label } from "../ui/label";
@@ -6,18 +5,17 @@ import { Input, Textarea } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { IconMail, IconPhone, IconSend } from "@tabler/icons-react";
 import { BorderBeam } from "@/components/ui/border-beam";
+import { addToast } from "@heroui/toast";
 import Link from "next/link";
 
 export default function ContactForm() {
-  // State for form data and submission status
+  // State for form data
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
-  const [status, setStatus] = useState<string | null>(null);
-  const [errors, setErrors] = useState<string[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -27,8 +25,6 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus(null);
-    setErrors([]);
 
     try {
       const response = await fetch("/api/contact", {
@@ -42,13 +38,47 @@ export default function ContactForm() {
       const result = await response.json();
 
       if (response.ok) {
-        setStatus("Message sent successfully!");
+        // عرض رسالة نجاح باستخدام toast
+        addToast({
+          title: "Success",
+          description: "Message sent successfully!",
+          variant: "bordered",
+          color: "success",
+          timeout: 3000,
+          shouldShowTimeoutProgress: true,
+        });
         setFormData({ name: "", email: "", phone: "", message: "" }); // Reset form
       } else {
-        setErrors(result.error || ["An error occurred. Please try again."]);
+        // عرض أخطاء الـ validation باستخدام toast
+        if (Array.isArray(result.error)) {
+          result.error.forEach((issue: { message: string }) => {
+            addToast({
+              title: "Validation Error",
+              description: issue.message,
+              variant: "flat",
+              color: "danger",
+              // timeout: 3000,
+              // shouldShowTimeoutProgress: true,
+            });
+          });
+        } else {
+          addToast({
+            title: "Error",
+            description: "An error occurred. Please try again.",
+            variant: "bordered",
+            color: "danger",
+            timeout: 3000,
+            shouldShowTimeoutProgress: true,
+          });
+        }
       }
     } catch (error) {
-      setErrors(["Failed to send message. Please try again later."]);
+      // عرض خطأ عام باستخدام toast
+      addToast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        color: "danger",
+      });
     }
   };
 
@@ -126,19 +156,9 @@ export default function ContactForm() {
             />
           </LabelInputContainer>
 
-          {/* Submission Status */}
-          {status && <p className="mb-4 text-sm text-green-500">{status}</p>}
-          {errors.length > 0 && (
-            <ul className="mb-4 text-sm text-red-500">
-              {errors.map((error, index) => (
-                <li key={index}>{error}</li>
-              ))}
-            </ul>
-          )}
-
           {/* Submit Button */}
           <button
-            className="group/btn relative cursor-pointer h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] flex items-center justify-center space-x-2"
+            className="group/btn relative cursor-pointer h-10 w-full rounded-md bg-gradient-to-br from-grad-4 to-grad-2 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] flex items-center justify-center space-x-2"
             type="submit"
           >
             <IconSend className="h-4 w-4 text-text" />

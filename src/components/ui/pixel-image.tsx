@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-
 import { cn } from "@/lib/utils";
 
 type Grid = {
@@ -24,9 +23,10 @@ interface PixelImageProps {
   grid?: PredefinedGridKey;
   customGrid?: Grid;
   grayscaleAnimation?: boolean;
-  pixelFadeInDuration?: number; // in ms
-  maxAnimationDelay?: number; // in ms
-  colorRevealDelay?: number; // in ms
+  pixelFadeInDuration?: number;
+  colorRevealDelay?: number;
+  clipPaths: string[];
+  delays: number[];
 }
 
 export const PixelImage = ({
@@ -34,9 +34,10 @@ export const PixelImage = ({
   grid = "6x4",
   grayscaleAnimation = true,
   pixelFadeInDuration = 1000,
-  maxAnimationDelay = 1200,
   colorRevealDelay = 1300,
   customGrid,
+  clipPaths,
+  delays,
 }: PixelImageProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showColor, setShowColor] = useState(false);
@@ -69,30 +70,9 @@ export const PixelImage = ({
     return () => clearTimeout(colorTimeout);
   }, [colorRevealDelay]);
 
-  const pieces = useMemo(() => {
-    const total = rows * cols;
-    return Array.from({ length: total }, (_, index) => {
-      const row = Math.floor(index / cols);
-      const col = index % cols;
-
-      const clipPath = `polygon(
-        ${col * (100 / cols)}% ${row * (100 / rows)}%,
-        ${(col + 1) * (100 / cols)}% ${row * (100 / rows)}%,
-        ${(col + 1) * (100 / cols)}% ${(row + 1) * (100 / rows)}%,
-        ${col * (100 / cols)}% ${(row + 1) * (100 / rows)}%
-      )`;
-
-      const delay = Math.random() * maxAnimationDelay;
-      return {
-        clipPath,
-        delay,
-      };
-    });
-  }, [rows, cols, maxAnimationDelay]);
-
   return (
     <div className="relative h-72 w-72 select-none md:h-96 md:w-96">
-      {pieces.map((piece, index) => (
+      {clipPaths.map((clipPath, index) => (
         <div
           key={index}
           className={cn(
@@ -100,8 +80,8 @@ export const PixelImage = ({
             isVisible ? "opacity-100" : "opacity-0"
           )}
           style={{
-            clipPath: piece.clipPath,
-            transitionDelay: `${piece.delay}ms`,
+            clipPath, // استخدام camelCase
+            transitionDelay: `${delays[index]}ms`,
             transitionDuration: `${pixelFadeInDuration}ms`,
           }}
         >

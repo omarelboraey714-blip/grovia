@@ -1,9 +1,7 @@
 "use client";
-
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion"; // عدلنا الـ import
 import Image from "next/image";
-
 import { useEffect, useState } from "react";
 
 type Testimonial = {
@@ -12,13 +10,20 @@ type Testimonial = {
   designation: string;
   src: string;
 };
+
+interface AnimatedTestimonialsProps {
+  testimonials: Testimonial[];
+  rotateAngles: number[];
+  opacities: number[];
+  autoplay?: boolean;
+}
+
 export const AnimatedTestimonials = ({
   testimonials,
+  rotateAngles,
+  opacities,
   autoplay = false,
-}: {
-  testimonials: Testimonial[];
-  autoplay?: boolean;
-}) => {
+}: AnimatedTestimonialsProps) => {
   const [active, setActive] = useState(0);
 
   const handleNext = () => {
@@ -40,9 +45,6 @@ export const AnimatedTestimonials = ({
     }
   }, [autoplay]);
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
   return (
     <div className="mx-auto my-40 max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
@@ -56,13 +58,13 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: -100,
-                    rotate: randomRotateY(),
+                    rotate: rotateAngles[index],
                   }}
                   animate={{
-                    opacity: isActive(index) ? 1 : 0.7,
+                    opacity: isActive(index) ? 1 : opacities[index],
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
-                    rotate: isActive(index) ? 0 : randomRotateY(),
+                    rotate: isActive(index) ? 0 : rotateAngles[index],
                     zIndex: isActive(index)
                       ? 40
                       : testimonials.length + 2 - index,
@@ -72,7 +74,7 @@ export const AnimatedTestimonials = ({
                     opacity: 0,
                     scale: 0.9,
                     z: 100,
-                    rotate: randomRotateY(),
+                    rotate: rotateAngles[index],
                   }}
                   transition={{
                     duration: 0.4,

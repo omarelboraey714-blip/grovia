@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const MaskContainer = ({
@@ -17,8 +17,6 @@ export const MaskContainer = ({
   className?: string;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
-  // ✅ استخدم نوع محدد بدل any
   const [mousePosition, setMousePosition] = useState<{
     x: number | null;
     y: number | null;
@@ -27,10 +25,8 @@ export const MaskContainer = ({
     y: null,
   });
 
-  // ✅ حدد نوع العنصر اللي الـ ref بيشاور عليه
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // ✅ عرّف نوع الحدث كـ React.MouseEvent
   const updateMousePosition = (e: MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
@@ -38,7 +34,7 @@ export const MaskContainer = ({
   };
 
   useEffect(() => {
-    const container = containerRef.current; // ✅ خزن القيمة في متغير لتجنب تحذير cleanup
+    const container = containerRef.current;
     if (!container) return;
 
     container.addEventListener("mousemove", updateMousePosition);
@@ -46,10 +42,15 @@ export const MaskContainer = ({
     return () => {
       container.removeEventListener("mousemove", updateMousePosition);
     };
-  }, []); // ✅ safe: updateMousePosition ثابتة
+  }, []);
 
-  // ✅ استخدم const بدل let
   const maskSize = isHovered ? revealSize : size;
+  const maskPosition =
+    mousePosition.x && mousePosition.y
+      ? `${mousePosition.x - maskSize / 2}px ${
+          mousePosition.y - maskSize / 2
+        }px`
+      : "0px 0px";
 
   return (
     <motion.div
@@ -65,9 +66,7 @@ export const MaskContainer = ({
       <motion.div
         className="absolute flex h-full w-full items-center justify-center bg-black text-6xl [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px] dark:bg-white"
         animate={{
-          maskPosition: `${(mousePosition.x ?? 0) - maskSize / 2}px ${
-            (mousePosition.y ?? 0) - maskSize / 2
-          }px`,
+          maskPosition,
           maskSize: `${maskSize}px`,
         }}
         transition={{

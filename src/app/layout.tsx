@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Providers } from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -65,7 +66,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#0f172a" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="bg-bg antialiased">{children}</body>
+      <body className="bg-bg antialiased">
+        {" "}
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

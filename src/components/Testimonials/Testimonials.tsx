@@ -1,6 +1,12 @@
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
-export default function AnimatedTestimonialsDemo() {
+export default function Testimonials({
+  rotateAngles,
+  opacities,
+}: {
+  rotateAngles: number[];
+  opacities: number[];
+}) {
   const testimonials = [
     {
       quote:
@@ -38,9 +44,14 @@ export default function AnimatedTestimonialsDemo() {
       src: "/images/LinkThompson.webp",
     },
   ];
+
   return (
-    <section id="Testmonials" className="my-40">
-      <AnimatedTestimonials testimonials={testimonials} />
+    <section id="Testimonials" className="my-40">
+      <AnimatedTestimonials
+        testimonials={testimonials}
+        rotateAngles={rotateAngles}
+        opacities={opacities}
+      />
     </section>
   );
 }

@@ -1,13 +1,37 @@
-"use client";
-import React from "react";
-import { HoverBorderGradient } from "../ui/hover-border-gradient";
-import { TypingAnimation } from "@/components/ui/typing-animation";
 import { PixelImage } from "@/components/ui/pixel-image";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 import { TextAnimate } from "@/components/ui/text-animate";
 import { BlurFade } from "@/components/ui/blur-fade";
 import Link from "next/link";
 
-export default function SVGMaskEffectDemo() {
+export async function getServerSideProps() {
+  const grid = { rows: 8, cols: 8 }; // نفس الـ customGrid المستخدم في Hero
+  const total = grid.rows * grid.cols;
+  const maxAnimationDelay = 1200; // نفس القيمة الافتراضية في PixelImage
+  const delays = Array.from(
+    { length: total },
+    () => Math.random() * maxAnimationDelay
+  );
+  const clipPaths = Array.from({ length: total }, (_, index) => {
+    const row = Math.floor(index / grid.cols);
+    const col = index % grid.cols;
+    return `polygon(${col * (100 / grid.cols)}% ${row * (100 / grid.rows)}%, ${
+      (col + 1) * (100 / grid.cols)
+    }% ${row * (100 / grid.rows)}%, ${(col + 1) * (100 / grid.cols)}% ${
+      (row + 1) * (100 / grid.rows)
+    }%, ${col * (100 / grid.cols)}% ${(row + 1) * (100 / grid.rows)}%)`;
+  });
+  return { props: { delays, clipPaths } };
+}
+
+export default function Hero({
+  delays,
+  clipPaths,
+}: {
+  delays: number[];
+  clipPaths: string[];
+}) {
   return (
     <section id="Home" className="py-20 px-10">
       <div className="flex items-center justify-center gap-10">
@@ -16,6 +40,10 @@ export default function SVGMaskEffectDemo() {
             src="/images/hero.webp"
             customGrid={{ rows: 8, cols: 8 }}
             grayscaleAnimation
+            pixelFadeInDuration={1000}
+            colorRevealDelay={1300}
+            delays={delays}
+            clipPaths={clipPaths}
           />
         </div>
         <div className="grid gap-5 px-5 text-center w-fit">
@@ -29,7 +57,7 @@ export default function SVGMaskEffectDemo() {
 
           <TextAnimate
             className="text-center text-xl text-text md:text-2xl font-openSans"
-            delay={1.5}
+            delay={1.7}
             duration={1.5}
             animation="blurIn"
             as="h1"
@@ -41,15 +69,15 @@ export default function SVGMaskEffectDemo() {
           </TextAnimate>
 
           <TextAnimate
-            className=" text-lg bg-gradient-to-r from-grad-4  to-grad-2 bg-clip-text text-transparent"
+            className="text-lg bg-gradient-to-r from-grad-4 to-grad-2 bg-clip-text text-transparent"
             animation="scaleUp"
             by="text"
-            delay={3.2}
+            delay={3.5}
             once
           >
             Let’s accelerate your growth today
           </TextAnimate>
-          <BlurFade delay={3.2}>
+          <BlurFade delay={4}>
             <div className="flex justify-center text-center">
               <HoverBorderGradient
                 containerClassName="rounded-full"
