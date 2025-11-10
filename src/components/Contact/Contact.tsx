@@ -158,7 +158,7 @@ export default function ContactForm() {
 
           {/* Submit Button */}
           <button
-            className="group/btn relative cursor-pointer h-10 w-full rounded-md bg-gradient-to-br from-grad-4 to-grad-2 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] flex items-center justify-center space-x-2"
+            className="group/btn border border-muted-text/20 relative cursor-pointer h-10 w-full rounded-md bg-bg text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] flex items-center justify-center space-x-2"
             type="submit"
           >
             <IconSend className="h-4 w-4 text-text" />
@@ -168,7 +168,7 @@ export default function ContactForm() {
 
           <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-grad-2 to-transparent" />
 
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col gap-4 text-center">
             <div className="group/btn relative flex overflow-hidden h-10 w-full items-center justify-start space-x-2 rounded-md bg-bg px-4 font-medium text-black shadow-input dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_#262626]">
               <IconMail className="h-4 w-4 text-text" />
               <Link href="mailto:velante.Solutions@gmail.com">
@@ -193,6 +193,7 @@ export default function ContactForm() {
                 duration={8}
                 size={75}
               />
+              <BottomGradient />
             </div>
           </div>
         </form>

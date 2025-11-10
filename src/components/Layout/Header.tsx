@@ -29,7 +29,7 @@ export default function App() {
 
   const navLinks = [
     { label: "Home", href: "#Home" },
-    { label: "ًFeatures", href: "#Features" },
+    { label: "Features", href: "#Features" },
     { label: "Services", href: "#Services" },
     { label: "Testmonials", href: "#Testmonials" },
     { label: "Pricing", href: "#Pricing" },
@@ -48,7 +48,7 @@ export default function App() {
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
-      className="bg-bg/30 z-[9999] border-b border-zinc-800 "
+      className="bg-bg/20 z-[9999] border-b border-zinc-800 "
     >
       {/* Left side */}
       <NavbarContent>
@@ -58,7 +58,7 @@ export default function App() {
         />
         <NavbarBrand>
           <Link href="#Home">
-            <p className="font-bold bg-gradient-to-r select-none from-grad-4 to-grad-2 bg-clip-text text-transparent text-2xl">
+            <p className="font-bold bg-gradient-to-r select-none md:pb-1.5 from-grad-4 to-grad-2 bg-clip-text text-transparent text-2xl">
               GROVIA
             </p>
           </Link>
@@ -66,14 +66,18 @@ export default function App() {
       </NavbarContent>
 
       {/* Center links */}
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+      <NavbarContent
+        className="hidden sm:flex gap-4 lg:gap-12"
+        justify="center"
+      >
         {navLinks.map(({ label, href }) => (
           <NavbarItem key={label}>
             <Link
               href={href}
               size="md"
-              className="text-light hover:text-text font-bold"
+              className="relative group text-light hover:text-text font-bold pb-1.5"
             >
+              <span className=" absolute w-0 group-hover:w-full bottom-0 h-1 transition-width bg-gradient-to-r from-grad-4 to-grad-2"></span>
               {label}
             </Link>
           </NavbarItem>
@@ -81,11 +85,11 @@ export default function App() {
       </NavbarContent>
 
       {/* Mobile Menu */}
-      <NavbarMenu className="bg-bg/30 gap-8 z-[9998]">
+      <NavbarMenu className="bg-bg/20 gap-8 z-[9998] border-b border-muted-text/20">
         {menuItems.map(({ label, href }) => (
           <NavbarMenuItem key={label} className="">
             <Link
-              className="w-full text-light hover:text-text font-bold"
+              className="w-full text-light hover:text-text font-bold  border-b border-muted-text/20 pb-4 pl-4"
               href={href}
               size="md"
             >
